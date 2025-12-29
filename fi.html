@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Interest Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 40px;
+        }
+        .box {
+            background: white;
+            padding: 25px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button {
+            background: #2c7be5;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1a5fd0;
+        }
+        .result {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Simple Interest Calculator</h2>
+
+    <label>Principal (₹)</label>
+    <input type="number" id="principal">
+
+    <label>Rate of Interest (% per annum)</label>
+    <input type="number" id="rate">
+
+    <label>Start Date</label>
+    <input type="date" id="startDate">
+
+    <label>End Date</label>
+    <input type="date" id="endDate">
+
+    <button onclick="calculateInterest()">Calculate</button>
+
+    <div class="result" id="output"></div>
+</div>
+
+<script>
+function calculateInterest() {
+    let P = parseFloat(document.getElementById("principal").value);
+    let R = parseFloat(document.getElementById("rate").value);
+    let start = new Date(document.getElementById("startDate").value);
+    let end = new Date(document.getElementById("endDate").value);
+
+    let diffTime = end - start;
+    let N = diffTime / (1000 * 60 * 60 * 24);
+
+    if (N < 0 || isNaN(P) || isNaN(R)) {
+        document.getElementById("output").innerHTML = "Please enter valid inputs.";
+        return;
+    }
+
+    let interest = (P * N * R) / (100 * 365);
+
+    document.getElementById("output").innerHTML =
+        "Number of Days: " + Math.round(N) + "<br>" +
+        "Interest Payable: ₹" + interest.toFixed(2);
+}
+</script>
+
+</body>
+</html>
